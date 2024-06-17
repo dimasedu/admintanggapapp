@@ -7,19 +7,19 @@ function Sidebar(){
  {/* Main Sidebar Container */}
 <aside className="main-sidebar sidebar-dark-primary elevation-4">
   {/* Brand Logo */}
-  <a href="../../index3.html" className="brand-link">
-    <img src="adminlte/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" className="brand-image img-circle elevation-3" style={{opacity: '.8'}} />
-    <span className="brand-text font-weight-light">AdminLTE 3</span>
-  </a>
+  <Link to={'/home'} className="brand-link">
+    <img src="/adminlte/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" className="brand-image img-circle elevation-3" style={{opacity: '.8'}} />
+    <span className="brand-text font-weight-light">Tanggap App</span>
+  </Link>
   {/* Sidebar */}
   <div className="sidebar">
     {/* Sidebar user (optional) */}
     <div className="user-panel mt-3 pb-3 mb-3 d-flex">
       <div className="image">
-        <img src="adminlte/dist/img/user2-160x160.jpg" className="img-circle elevation-2" alt="User Image" />
+        <img src="/adminlte/dist/img/user2-160x160.jpg" className="img-circle elevation-2" alt="User Image" />
       </div>
       <div className="info">
-        <a href="#" className="d-block">Alexander Pierce</a>
+        <Link to={'#'} className="d-block">Administrator</Link>
       </div>
     </div>
     {/* Sidebar Menu */}
@@ -30,30 +30,30 @@ function Sidebar(){
         
        
         <li className="nav-item">
-          <a href="../../iframe.html" className="nav-link">
+          <Link to={'/home'} className="nav-link">
             <i className="nav-icon fas fa-home" />
             <p>Home</p>
-          </a>
+          </Link>
         </li>
 
         <li className="nav-header">PENGADUAN</li>
         <li className="nav-item">
-          <a href="#" className="nav-link">
+          <Link to={'/aduanbaru'} className="nav-link">
             <i className="nav-icon fas fa-list text-warning" />
             <p>Pengaduan Baru</p>
-          </a>
+          </Link>
         </li>
         <li className="nav-item">
-          <a href="#" className="nav-link">
+          <Link to={'/aduanproses'} className="nav-link">
             <i className="nav-icon fas fa-clone text-danger" />
             <p>Pengaduan Proses</p>
-          </a>
+          </Link>
         </li>
         <li className="nav-item">
-          <a href="#" className="nav-link">
+          <Link to={'/aduanselesai'} className="nav-link">
             <i className="nav-icon fas fa-check-square text-success" />
             <p>Pengaduan Selesai</p>
-          </a>
+          </Link>
         </li>
 
         <li className="nav-header">PENGATURAN</li>

@@ -23,28 +23,31 @@ function Login() {
         formData.append('email', email);
         formData.append('password', password);
 
-        //send data to server
-        await axios.post('http://202.10.41.84:5000/api/admin/login', formData,{
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': '*',
-                'Access-Control-Allow-Credentials': true
+        // //send data to server
+        // await axios.post('http://202.10.41.84:5000/api/admin/login', formData,{
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Access-Control-Allow-Origin': '*',
+        //         'Access-Control-Allow-Headers': '*',
+        //         'Access-Control-Allow-Credentials': false
                 
-            },
-        })
-        .then((response) => {
+        //     },
+        // })
+        // .then((response) => {
 
-            //set token on localStorage
-            localStorage.setItem('token', response.data.token);
+        //     //set token on localStorage
+        //     localStorage.setItem('token', response.data.token);
 
-            //redirect to dashboard
+        //     //redirect to dashboard
+        //     navigate('/home');
+        // })
+        // .catch((error) => {
+
+        //     setValidation(error);
+        // })
+
+        //redirect to dashboard
             navigate('/home');
-        })
-        .catch((error) => {
-
-            setValidation(error);
-        })
 
     }
 

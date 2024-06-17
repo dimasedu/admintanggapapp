@@ -1,13 +1,11 @@
 import React from 'react';
-import Footer from './main/Footer';
-import Sidebar from './main/Sidebar';
-import Navbar from './main/Navbar';
+import Navbar from '../main/Navbar';
+import Sidebar from '../main/Sidebar';
+import Footer from '../main/Footer';
 
-
-function Userlist(){
-
-	return (
-		<div>
+function Aduanproses() {
+  return (
+    <div>
       <Navbar/>
       <Sidebar/>
       {/* Content Wrapper. Contains page content */}
@@ -17,12 +15,12 @@ function Userlist(){
     <div className="container-fluid">
       <div className="row mb-2">
         <div className="col-sm-6">
-          <h1>Blank Page</h1>
+          <h1>Pengaduan Diproses</h1>
         </div>
         <div className="col-sm-6">
           <ol className="breadcrumb float-sm-right">
             <li className="breadcrumb-item"><a href="#">Home</a></li>
-            <li className="breadcrumb-item active">Blank Page</li>
+            <li className="breadcrumb-item active">Pengaduan</li>
           </ol>
         </div>
       </div>
@@ -33,7 +31,7 @@ function Userlist(){
     {/* Default box */}
     <div className="card">
       <div className="card-header">
-        <h3 className="card-title">Title</h3>
+        <h3 className="card-title">Daftar Pengaduan Telah Diproses</h3>
         <div className="card-tools">
           <button type="button" className="btn btn-tool" data-card-widget="collapse" title="Collapse">
             <i className="fas fa-minus" />
@@ -44,11 +42,23 @@ function Userlist(){
         </div>
       </div>
       <div className="card-body">
-        Start creating your amazing application!
+        <table className='table table-bordered table-striped' id="tabledata">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Judul</th>
+                    <th>Tanggal</th>
+                    <th>Nama Pengguna</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                </tbody>
+        </table>    
       </div>
       {/* /.card-body */}
       <div className="card-footer">
-        Footer
       </div>
       {/* /.card-footer*/}
     </div>
@@ -59,8 +69,8 @@ function Userlist(){
 {/* /.content-wrapper */}
 
 			<Footer/>
-		</div>
-	);
+    </div>
+  )
 }
 
-export default Userlist;
+export default Aduanproses
