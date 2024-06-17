@@ -2,10 +2,10 @@
 
 Source code halaman administrator aplikasi tanggap. Fitur yang tersedia :
 
-a. Kelola Administrator
-b. Kelola Member
-c. Kelola Pengaduan (Baru, Proses dan Selesai)
-d. Laporan Pengaduan
+a. Kelola Administrator<br>
+b. Kelola Member<br>
+c. Kelola Pengaduan (Baru, Proses dan Selesai)<br>
+d. Laporan Pengaduan<br>
 
 Currently, two official plugins are available:
 
