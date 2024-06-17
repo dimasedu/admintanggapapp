@@ -1,6 +1,11 @@
-# React + Vite
+# Administrator Aplikasi Tanggap Admin
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Source code halaman administrator aplikasi tanggap. Fitur yang tersedia :
+
+a. Kelola Administrator
+b. Kelola Member
+c. Kelola Pengaduan (Baru, Proses dan Selesai)
+d. Laporan Pengaduan
 
 Currently, two official plugins are available:
 
