@@ -9,6 +9,10 @@ import Aduanselesai from './component/aduan/Aduanselesai';
 import BeritaAdd from './component/berita/BeritaAdd';
 import BeritaEdit from './component/berita/BeritaEdit';
 import BeritaList from './component/berita/BeritaList';
+import Users from './component/users/Users';
+import UserAdd from './component/users/UserAdd';
+import UserEdit from './component/users/UserEdit';
+import UserDetail from './component/users/UserDetail';
 
 
 
@@ -25,6 +29,10 @@ function App() {
                     <Route path="/berita" element={<BeritaList/>}/>
                     <Route path="/beritaadd" element={<BeritaAdd/>}/>
                     <Route path="/beritaedit/:id" element={<BeritaEdit/>}/>
+                    <Route path="/users" element={<Users/>}/>
+                    <Route path="/useradd" element={<UserAdd/>}/>
+                    <Route path="/useredit/:id" element={<UserEdit/>}/>
+                    <Route path="/userdetail/:id" element={<UserDetail/>}/>
 
                 </Routes>
             </BrowserRouter>

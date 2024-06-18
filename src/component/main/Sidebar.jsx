@@ -56,12 +56,26 @@ function Sidebar(){
           </Link>
         </li>
 
+        <li className="nav-header">BERITA</li>
+        <li className="nav-item">
+          <Link to={'/beritaadd'} className="nav-link">
+            <i className="nav-icon fas fa-file" />
+            <p>Tambah Berita</p>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to={'/beritalist'} className="nav-link">
+            <i className="nav-icon fas fa-receipt" />
+            <p>Daftar Berita</p>
+          </Link>
+        </li>
+
         <li className="nav-header">PENGATURAN</li>
         <li className="nav-item">
-          <a href="https://adminlte.io/docs/3.1/" className="nav-link">
-            <i className="nav-icon fas fa-file" />
+          <Link to={'/users'} className="nav-link">
+            <i className="nav-icon fas fa-users" />
             <p>Data Pengguna</p>
-          </a>
+          </Link>
         </li>
 
         <li className="nav-item">
