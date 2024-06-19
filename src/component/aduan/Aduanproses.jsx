@@ -1,9 +1,50 @@
-import React from 'react';
-import Navbar from '../main/Navbar';
-import Sidebar from '../main/Sidebar';
+import React, {useEffect, useState} from 'react';
 import Footer from '../main/Footer';
+import Sidebar from '../main/Sidebar';
+import Navbar from '../main/Navbar';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function Aduanproses() {
+  const [aduan, setAduan] = useState([]);
+  const [msg, setMessage] = useState([]);
+  const [status, setStatus] = useState('selesai');
+    
+  const token = localStorage.getItem("token");
+
+  const getAduan = async () => {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      await axios.get('http://202.10.41.84:5000/api/aduan/get/proses')
+          .then(response => {
+              
+              //assign response data to state "posts"
+              setAduan(response.data.data);
+              console.log(response.data.data);
+          });
+  }
+
+  const saveSelesai = async(id) => {
+    //init FormData
+    const formData = new FormData();
+
+    //append data
+    formData.append('status', status);
+    try {
+      if(confirm('Apakah yakin akan memproses data ini?')){
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        await axios.put(`http://202.10.41.84:5000/api/aduan/update/${id}`,formData);
+        getAduan();
+        setMessage({message:'Data pengaduan berhasil diselesaikan.'});
+
+      }
+      
+    } catch (error) {
+        console.log(error);
+    }
+  }
+  useEffect(()=>{
+      getAduan();
+  },[]);
   return (
     <div>
       <Navbar/>
@@ -15,7 +56,7 @@ function Aduanproses() {
     <div className="container-fluid">
       <div className="row mb-2">
         <div className="col-sm-6">
-          <h1>Pengaduan Diproses</h1>
+          <h1>Pengaduan</h1>
         </div>
         <div className="col-sm-6">
           <ol className="breadcrumb float-sm-right">
@@ -42,6 +83,13 @@ function Aduanproses() {
         </div>
       </div>
       <div className="card-body">
+      {
+            msg.message && (
+                <div className="alert alert-success">
+                    {msg.message}
+                </div>
+            )
+        }
         <table className='table table-bordered table-striped' id="tabledata">
             <thead>
                 <tr>
@@ -54,6 +102,29 @@ function Aduanproses() {
                 </tr>
             </thead>
             <tbody>
+            {
+                    aduan.length > 0
+                        ? aduan.map((aduan, index)=>(
+                    <tr key={aduan.id}>
+                        <td>{index + 1}</td>
+                        <td>{aduan.judul}</td>
+                        <td>{dateFormat(aduan.createdAt,'dd/mm/yyyy HH:mm')} WIB</td>
+                        <td>{aduan.User.nama_depan} {aduan.User.nama_belakang}<br />
+<small>{aduan.User.email}</small></td>
+                        <td><span className='badge bg-warning'>DIPROSES</span></td>
+                        <td>
+                        <button onClick={()=> saveSelesai(aduan.id)} className='btn btn-xs btn-success rounded-sm shadow border-0 me-2 btn-sm'><i className='fa fa-check'></i> SELESAI</button>
+                           
+                        </td>
+                    </tr>
+                )) :
+                <tr className='bg-danger'>
+              <td colSpan="54" className="text-center">
+                
+                      Data Belum Tersedia!
+              </td>
+          </tr>
+                }
                 </tbody>
         </table>    
       </div>

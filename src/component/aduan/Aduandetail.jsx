@@ -4,12 +4,16 @@ import Sidebar from '../main/Sidebar';
 import Navbar from '../main/Navbar';
 import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import dateFormat from 'dateformat';
 
-function BeritaEdit() {
-  const [image, setImage] = useState('');
-  const [judul, setTitle] = useState('');
-  const [isi, setContent] = useState('');
+function Aduandetail() {
+  const [judul, setJudul] = useState('');
+  const [lokasi, setLokasi] = useState('');
+  const [tanggal, setTanggal] = useState('');
+  const [uraian, setUraian] = useState('');
+  const [tanggapan, setTanggapan] = useState('');
   const [foto, setFoto] = useState('');
+  const [status, setStatus] = useState('');
 
   //state validation
   const [errors, setErrors] = useState([]);
@@ -22,56 +26,28 @@ function BeritaEdit() {
 
   const token = localStorage.getItem("token");
 
-  const getBerita = async () => {
+  const getAduan = async () => {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      await axios.get(`http://202.10.41.84:5000/api/berita/get/${id}`)
+      await axios.get(`http://202.10.41.84:5000/api/aduan/detail/${id}`)
           .then(response => {
               
               //assign response data to state "posts"
-              setTitle(response.data.data.judul);
-              setContent(response.data.data.isi);
+              setJudul(response.data.data.judul);
+              setLokasi(response.data.data.lokasi);
+              setTanggal(response.data.data.createdAt);
+              setUraian(response.data.data.uraian);
+              setTanggapan(response.data.data.tanggapan);
               setFoto(response.data.data.foto);
+              setStatus(response.data.data.status);
               console.log(response.data.data);
           });
   }
   useEffect(()=>{
-      getBerita();
+      getAduan();
   },[]);
 
-  //method handle file change
-  const handleFileChange = (e) => {
-    setImage(e.target.files[0]);
-  }
 
-  const saveHandler = async (e) => {
-    e.preventDefault();
-    
-    //init FormData
-    const formData = new FormData();
-
-    //append data
-    formData.append('image', image);
-    formData.append('judul', judul);
-    formData.append('isi', isi);
-
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    //send data with API
-    await axios.put(`http://202.10.41.84:5000/api/berita/update/${id}`, formData,{
-      headers: {
-        "Content-type": "multipart/form-data",
-      },
-    }).then(() => {
-            
-            //redirect to posts index
-            navigate('/beritalist');
-
-        })
-        .catch(error => {
-            
-            //set errors response to state "errors"
-            setErrors(error.response.data);
-        })
-}
+  
   return (
     <div>
       <Navbar/>
@@ -82,12 +58,12 @@ function BeritaEdit() {
     <div className="container-fluid">
       <div className="row mb-2">
         <div className="col-sm-6">
-          <h1>Berita</h1>
+          <h1>Pengaduan</h1>
         </div>
         <div className="col-sm-6">
           <ol className="breadcrumb float-sm-right">
             <li className="breadcrumb-item"><a href="#">Home</a></li>
-            <li className="breadcrumb-item active">Berita</li>
+            <li className="breadcrumb-item active">Pengaduan</li>
           </ol>
         </div>
       </div>
@@ -98,7 +74,7 @@ function BeritaEdit() {
     {/* Default box */}
     <div className="card">
       <div className="card-header">
-        <h3 className="card-title">Update Berita</h3>
+        <h3 className="card-title">Detail Pengaduan</h3>
         <div className="card-tools">
           <button type="button" className="btn btn-tool" data-card-widget="collapse" title="Collapse">
             <i className="fas fa-minus" />
@@ -109,7 +85,6 @@ function BeritaEdit() {
         </div>
       </div>
       <div className="card-body">
-      <form onSubmit={saveHandler}>
       {
             errors.message && (
                 <div className="alert alert-danger">
@@ -119,29 +94,45 @@ function BeritaEdit() {
         }
 
             <div className="form-group">
-                <label>Judul Berita</label>
-                <input type="text" className="form-control" placeholder="Masukkan Judul Berita" value={judul} 
-                        onChange={(e)=> setTitle(e.target.value)}/>
+                <label>Judul Aduan</label><br/>
+                {judul}
             </div>
 
             <div className="form-group">
-                <label>Isi Konten</label>
-                <textarea className="form-control" onChange={(e) => setContent(e.target.value)} rows="5" placeholder="Isi Berita" value={isi}></textarea>
+                <label>Lokasi</label><br/>
+                {lokasi}
+            </div>
+
+            <div className="form-group">
+                <label>Tanggal</label><br/>
+                {dateFormat(tanggal,'dd/mm/yyyy HH:mm')} WIB
+            </div>
+
+            <div className="form-group">
+                <label>Uraian</label><br />
+                {uraian}
             </div>
             <div className="form-group">
-                <label>Upload Gambar</label>
-                <input type="file" onChange={handleFileChange} className="form-control"/>
+                <label>Bukti Foto</label><br />
                 <img src={foto} width={300} className='img-fluid'/>
+            </div>
+
+            <div className="form-group">
+                <label>Status</label><br/>
+                <span className='badge bg-success'>{status}</span>
+            </div>
+
+            <div className="form-group">
+                <label>Tanggapan</label><br/>
+                {tanggapan}
             </div>
         
       
       <div className="row">
         <div className='col-12'>
-          <Link to={`/beritalist`} className='btn btn-xs btn-danger mr-2'><i className='fa fa-times'></i> Kembali</Link>
-          <button type="submit" className="btn btn-success"><i className='fas fa-check'></i> Simpan Data</button>
+          <Link to={`/aduanselesai`} className='btn btn-xs btn-danger mr-2'><i className='fa fa-times'></i> Kembali</Link>
         </div>
       </div>
-      </form>
       </div>
       {/* /.card-body */}
      
@@ -160,4 +151,4 @@ function BeritaEdit() {
   )
 }
 
-export default BeritaEdit
+export default Aduandetail

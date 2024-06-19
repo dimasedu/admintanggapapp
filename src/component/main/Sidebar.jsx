@@ -79,12 +79,12 @@ function Sidebar(){
         </li>
 
         <li className="nav-item">
-          <a href="../widgets.html" className="btn btn-danger btn-block text-danger text-left nav-link">
+          <Link to={'/'} className="btn btn-danger btn-block text-danger text-left nav-link">
             <i className="nav-icon fas fa-lock" />
             <p>
               Logout
             </p>
-          </a>
+          </Link>
         </li>
         
         

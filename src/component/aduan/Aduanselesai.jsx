@@ -1,9 +1,30 @@
-import React from 'react';
-import Navbar from '../main/Navbar';
-import Sidebar from '../main/Sidebar';
+import React, {useEffect, useState} from 'react';
 import Footer from '../main/Footer';
+import Sidebar from '../main/Sidebar';
+import Navbar from '../main/Navbar';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import dateFormat from 'dateformat';
 
 function Aduanselesai() {
+  const [aduan, setAduan] = useState([]);
+    
+  const token = localStorage.getItem("token");
+
+  const getAduan = async () => {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      await axios.get('http://202.10.41.84:5000/api/aduan/get/selesai')
+          .then(response => {
+              
+              //assign response data to state "posts"
+              setAduan(response.data.data);
+              console.log(response.data.data);
+          });
+  }
+  useEffect(()=>{
+      getAduan();
+  },[]);
+
   return (
     <div>
       <Navbar/>
@@ -15,7 +36,7 @@ function Aduanselesai() {
     <div className="container-fluid">
       <div className="row mb-2">
         <div className="col-sm-6">
-          <h1>Pengaduan Selesai</h1>
+          <h1>Pengaduan</h1>
         </div>
         <div className="col-sm-6">
           <ol className="breadcrumb float-sm-right">
@@ -54,6 +75,30 @@ function Aduanselesai() {
                 </tr>
             </thead>
             <tbody>
+            {
+                    aduan.length > 0
+                        ? aduan.map((aduan, index)=>(
+                    <tr key={aduan.id}>
+                        <td>{index + 1}</td>
+                        <td>{aduan.judul}</td>
+                        <td>{dateFormat(aduan.createdAt,'dd/mm/yyyy HH:mm')} WIB</td>
+                        <td>{aduan.User.nama_depan} {aduan.User.nama_belakang}<br />
+<small>{aduan.User.email}</small></td>
+                        <td><span className='badge bg-info'>SELESAI</span></td>
+                        <td>
+                            <Link to={`/aduandetail/${aduan.id}`} className='btn btn-xs btn-info mr-2'><i className='fa fa-eye'></i></Link>
+                           
+                        </td>
+                    </tr>
+                )) 
+                :
+                <tr className='bg-danger'>
+              <td colSpan="54" className="text-center">
+                
+                      Data Belum Tersedia!
+              </td>
+          </tr>
+                }
                 </tbody>
         </table>    
       </div>

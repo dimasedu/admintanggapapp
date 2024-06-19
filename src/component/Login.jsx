@@ -23,31 +23,32 @@ function Login() {
         formData.append('email', email);
         formData.append('password', password);
 
-        // //send data to server
-        // await axios.post('http://202.10.41.84:5000/api/admin/login', formData,{
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Access-Control-Allow-Origin': '*',
-        //         'Access-Control-Allow-Headers': '*',
-        //         'Access-Control-Allow-Credentials': false
+        //send data to server
+        await axios.post('http://202.10.41.84:5000/api/admin/login', formData,{
+            // headers: {
+            //     'Content-Type': 'application/json',
+            //     'Access-Control-Allow-Origin': '*',
+            //     'Access-Control-Allow-Headers': '*',
+            //     'Access-Control-Allow-Credentials': false
                 
-        //     },
-        // })
-        // .then((response) => {
+            // },
+        })
+        .then((response) => {
 
-        //     //set token on localStorage
-        //     localStorage.setItem('token', response.data.token);
+            //set token on localStorage
+            localStorage.setItem('token', response.data.data.token);
+            // console.log(response.data.data);
 
-        //     //redirect to dashboard
-        //     navigate('/home');
-        // })
-        // .catch((error) => {
-
-        //     setValidation(error);
-        // })
-
-        //redirect to dashboard
+            //redirect to dashboard
             navigate('/home');
+        })
+        .catch((error) => {
+
+            setValidation(error);
+            console.log(error);
+        })
+
+            // navigate('/home');
 
     }
 
@@ -63,6 +64,13 @@ function Login() {
     <div className="card-body login-card-body">
       <p className="login-box-msg">Silahkan Login</p>
         
+      {
+            validation.message && (
+                <div className="alert alert-danger">
+                    {validation.message}
+                </div>
+            )
+        }
       <form onSubmit={loginHandler}>
         <div className="input-group mb-3">
           <input type="email" className="form-control" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -72,14 +80,6 @@ function Login() {
             </div>
           </div>
         </div>
-
-        {
-            validation.email && (
-                <div className="alert alert-danger">
-                    {validation.email[0]}
-                </div>
-            )
-        }
         
         <div className="input-group mb-3">
           <input type="password" className="form-control" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
@@ -89,14 +89,6 @@ function Login() {
             </div>
           </div>
         </div>
-
-        {
-            validation.password && (
-                <div className="alert alert-danger">
-                    {validation.password[0]}
-                </div>
-            )
-        }
         
         <div className="row">
           <div className="col-8">
